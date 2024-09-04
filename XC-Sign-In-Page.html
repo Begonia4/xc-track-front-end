@@ -1,0 +1,85 @@
+<!DOCTYPE html> 
+<html lang = 'en'>
+	<head>
+		<meta charset = 'utf-8'>
+		<title> Sign in </title>
+		<!-- check if the required fields have been filled in --> 
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+		<link rel = 'stylesheet' href = "Untitled-1.css"> </link>
+	</head>
+	<body> 
+		<nav> <button id = 'about-us'> About us </button> </nav>
+		<header>
+			<h1> Sign in </h1>
+		</header>
+		<main> 
+			
+			
+				<form> 
+				<label> Email: </label>
+				<div>
+			
+				<input id = 'email' type = 'email' placeholder = 'username' maxlength = '50' required> </input> 
+				</div> 
+				<label> Password: </label>
+				<div>
+				
+				<input id = 'password' type = 'password' placeholder = 'password' maxlength = '25' required> </input>
+				</div>
+				<div>
+				<button id = 'id' type = 'submit' > Sign in </button> 
+				<button id = 'reset'> Click here if you forgot your password </button>
+				</div>
+				
+				</form>
+				<span></span>
+				
+
+				<script> 
+					document.querySelector('#about-us').addEventListener('click', (e) => {
+						document.location = 'About%2DUs%2DPage.html';
+					});
+					document.querySelector('#reset').addEventListener('click', (e) => {
+						document.location = 'password%20reset.html';
+					});
+	
+					/* Checks if the user entered a valid answer for username and password
+					const inputs = document.querySelectorAll(`input`);
+					for (const input of inputs) {
+						documnet.querySelector(input).addEventListner(`invalid`, () => {
+						input.classList.add(`error`);
+					}); */
+		
+					document.querySelector('form').addEventListener('submit', async (e) => {
+						e.preventDefault();
+						let email = document.querySelector('#email').value;
+						let password = document.querySelector('#passwords').value;
+
+						const formData = {
+							email: email,
+							password: password
+						}
+						//TODO: Try Catch Block
+						const response = fetch('Sign%20in%20page.php', {method: 'POST', body: JSON.stringify(formData)});
+						const responseArray = response.json();
+						if(responseArray[0] === 'green') {
+							sessionStoarge.setItem('email', email);
+							sessionStoarge.setItem('firstName', responseArray[1]); 
+							document.location = 'XC%2DAthlete%2DPage.html';
+						} else if (responseArray[0] === 'yellow'){
+							target = document.querySelector('span'); 
+							target.innerHTML = responseArray[1]; 
+						} else {
+							target = document.querySelector('span');
+							for(let i = 0; i < 3; i++) {
+								// TODO: make a newline
+								target.innerHTML = responseArray[i];
+							}
+ 						}
+					});		
+				</script> 
+		</main>
+	</body>
+</html>

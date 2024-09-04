@@ -1,0 +1,59 @@
+<!DOCTYPE html> 
+<html lang = 'en'>
+<head> 
+	<meta charset = 'utf-8'> 
+	<title> Home Page </title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">	
+	<link rel = 'stylesheet' href = 'AthletePage.css'> </link>
+</head>
+<body> 
+	<nav> 
+		<button id = 'profile'> Profile Page </button> 
+		<h1> Welcome to the XC/Track organizer </h1>
+	</nav>
+	
+	<main>
+		<form>
+		<button type = 'button' name = 'add-athletes'> Add Athletes </button> 
+		<button type = 'button' name = 'view-athletes'> View Athlete's meets and times </button>
+		<button type = 'button' name = 'update-athletes'> Update or delete information about the athletes</button>
+		<button type = 'button' name = 'add-meet-info'> Add meet info </button>
+		<button type = 'button' name = 'meet-document'> Get meet info in a spreadsheet </button>
+		<button type = 'button' name = 'athletes-document'> Get athlete info in docs </button>
+		</form>
+		
+		<script>
+			document.querySelector('button[id=profile]').addEventListener('click', (e) => {
+				e.preventDefault();
+				document.location = 'profile%2Dpage.html';
+			})
+			document.querySelector('button[name=add-athletes').addEventListener('click', (e) => {
+				e.preventDefault();
+				document.location = 'add%2Dathletes.html';
+			})
+			document.querySelector('button[name=view-athletes]').addEventListener('click', (e) => {
+				e.preventDefault();
+				document.location = 'view%2Dathletes.html';
+			})
+			document.querySelector('button[name=update-athletes]').addEventListener('click', (e) => {
+				e.preventDefault();
+				document.location = 'update%2Dathlete%2Dchoose%2Dathlete.html';
+			})
+			document.querySelector('button[name=add-meet-info]').addEventListener('click', (e) => {
+				e.preventDefault();
+				document.location = 'add%2Dmeet%2Dinfo.html';
+			})
+			document.querySelector('button[name=meet-document]').addEventListener('click', (e) => {
+				e.preventDefault();
+				document.location = 'meet%2Ddocument.html';
+			})
+			document.querySelector('button[name=athletes-document]').addEventListener('click', (e) => {
+				e.preventDefault();
+				document.location = 'athlete%2Dseason%2Dinfo.html';
+			})
+		</script>
+	</main>
+</body>
+</html>

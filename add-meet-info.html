@@ -1,0 +1,82 @@
+<!-- Make form data for milesplit meet-->
+<!DOCTYPE html> 
+	<html lang = 'en'>
+		<head>
+			<meta charset = 'utf-8'> 
+			<title> Add meet info </title>
+			<link rel="preconnect" href="https://fonts.googleapis.com">
+	    	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	    	<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">	
+	    	<link rel = 'stylesheet' href = 'add-athletes.css'> </link>
+		</head>
+		
+			<body> 
+				<nav> 
+					<button id = 'profile'> Profile Page </button> 
+					<h1> XC/Track organizer </h1>
+				</nav>
+				<header>
+					<h1> Add meet info </h1>
+				</header>
+				<main>
+				<form> 
+					<label> Enter the milesplit link </label>
+					<input id = 'link' placeholder = 'milesplitlink.com' type = 'url' required> </input>
+					<label> Enter name of the meet </label>
+					<input id = 'meet-name' type = 'text', placeholder = 'meet name' required> </input>
+					<button type = 'submit'> Submit </button>
+				</form>
+				<span> </span>
+				<script>   
+					document.querySelector('button[id=profile]').addEventListener('click', (e) => {
+						e.preventDefault();
+						document.location = 'profile%2Dpage.html';
+					});
+					let form = document.querySelector('form');
+					form.addEventListener('submit', async (e) => {
+						/*TODO Probably want to do this asynchronously cause we need to change the document variable
+						without changin the whole page */
+						e.preventDefault(); 
+						let milesplitLink = document.querySelector('#link').value;
+						let meetNamesArray = milesplitLink.querySelector('.athlete : link'); //Trying to do a command to scrape the data from the website and put it in an array 
+						let timesArray = milesplitLink.querySelector('.finish'); //Trying to scrape the finish time data from the website
+						let meetName = document.querySelector('#meet-name').value;
+						let firstName = sessionStoarge.getItem('firstName');
+						let email = sessionStoarge.getItem('email'); 
+						sessionStoarge.setItem('meetName', meetName); 
+
+						const formData = {
+							meetNames: meetNamesArray,
+							times: timesArray,
+							meet: meetName,
+							firstName: firstName,
+							email: email
+						}
+
+						const response = await fetch('add%2Dmeet%2Dinfo.php', {method: 'POST', body: JSON.stringify(formData)});
+
+						if(response === 'green') {
+							document.location = 'add%2Dmeet%2Dinfo.html'; 
+						} else {
+							let target = document.querySelector('span');
+							target.innerHTML = response; 
+						}
+						// TODO Add a success message
+					}); 
+					//TODO Then outside the async function reset the document location. 
+					document.location = 'add%2Dmeet%2Dinfo.html'; 
+				</script>
+				</main>
+			</body>
+		
+	</html>
+
+
+ 
+
+
+	
+		
+
+	
+

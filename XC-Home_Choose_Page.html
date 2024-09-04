@@ -1,0 +1,43 @@
+<!DOCTYPE html> 
+<html lang = 'en'>
+<head>
+	<meta charset = 'utf-8'>
+	<title> XC/Track team organizer </title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+	<link rel = 'stylesheet' href = 'XC-Home-Choose_Page.css'> </link>
+</head>
+<body>
+	
+	<nav>
+		<button id = 'about-us'> About us </button>
+	</nav>
+	<main>
+	    <article> 
+			<section> XC & Track Times </section>
+			
+				<div>
+				<button id = 'sign-in-choice'> Sign in </button> 
+				<button id = 'create-account-choice'> Create Account </button>
+				</div>
+			
+				<script> 
+					document.querySelector('#sign-in-choice').addEventListener('click', (e) => {
+						document.location = 'XC%2DSign%2DIn%2DPage.html';
+					})
+					document.querySelector('#create-account-choice').addEventListener('click', (e) => {
+						document.location = "XC%2DCreate%2DAccount%2DPage.html"; 
+					})
+					document.querySelector('#about-us').addEventListener('click', (e) => {
+						document.location = "About%2DUs%2DPage.html"; 
+					})
+				</script>
+			
+            <!-- Explain how to use the XC organizer”  --> 
+            
+		</article>
+    </main>
+</body>
+</html>
+

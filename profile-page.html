@@ -1,0 +1,80 @@
+<!DOCTYPE html> 
+<html lang = 'en'> 
+    <head>
+        <meta charset = "utf-8">
+        <title> Profile Page </title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+	    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">	
+	    <link rel = 'stylesheet' href = 'ProfilePage.css'> </link>
+    </head>
+    <body> 
+        <nav> 
+            <button id = 'profile'> Profile Page </button> 
+            <h1> XC/Track organizer </h1>
+        </nav>
+        <main>
+        <div class = 'intro'>
+            Welcome to your profile page, where you can update your first name, last name, username/email, password, and school name 
+            These are your current values for each identification factor: 
+            <div id = 'firstNameCurrent'> </div>
+            <div id = 'lastNameCurrent'> </div>
+            <div id = 'emailCurrent'> </div>
+            <div id = 'schoolNameCurrent'> </div>
+        </div>
+        <form> 
+            <input type = 'radio' name = 'choice' value = 'firstName'> First Name </input>
+            <input type = 'radio' name = 'choice' value = 'lastName'> Last Name </input>
+            <input type = 'radio' name = 'choice' value = 'email'> Username/Email </input>
+            <input type = 'radio' name = 'choice' value = 'schoolName'> School Name </input>
+            <input type = 'radio' name = 'choice' value = 'password'> Password </input>
+            <button type = "submit"> Submit </button>
+        </form>
+        </main>
+        <script>
+            document.querySelector('button[id=profile]').addEventListener('click', (e) => {
+				e.preventDefault();
+				document.location = 'profile%2Dpage.html';
+			});
+            let firstName = sessionStoarge.getItem('firstName');
+            let lastName = sessionStoarge.getItem('lastName');
+            let email = sessionStoarge.getItem('email'); 
+            let schoolData = {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+            }
+            const schoolResponse = fetch('school%2Dname.php', {method: 'POST', body: JSON.stringify(schoolData)});
+
+            let schoolName = schoolResponse.json()
+
+            document.querySelector('#firstNameCurrent').innerHTML = 'First name: ' + firstName;
+            document.querySelector('#lastNameCurrent').innerHTML = 'Last name: ' + lastName;
+            document.querySelector('#emailCurrent').innerHTML = 'Email: ' + email;
+            document.querySelector('#schoolNameCurrent').innerHTML = 'School name: ' + schoolName;
+ 
+            document.querySelector('form').addEventLisntener('submit', (e) => {
+                e.preventDefault(); 
+                let radios = document.querySelector('input[type=radio]');
+                radios.forEach((radio) => {
+                    if(radio.checked) {
+                        let choice = radio.value();
+                    }
+                });
+
+                if(choice = 'firstName') {
+                    document.location = 'firstName.html';
+                } else if(choice = 'lastName') {
+                    document.location = 'lastName.html';
+                } else if(choice = 'email') {
+                    document.location = 'email.html';
+                } else if(choice = 'schoolName') {
+                    sessionStoarge.setItem('schoolName', schoolName);
+                    document.location = 'schoolName.html';
+                } else if(choice = 'password') {
+                    document.location = 'password%20reset.html';
+                }
+            });
+        </script>
+    </body>
+</html>

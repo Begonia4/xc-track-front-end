@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+    <head>
+        <meta charset = 'utf-8'> 
+        <title> View Athletes </title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+	    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">	
+	    <link rel = 'stylesheet' href = 'add-athletes.css'> </link>
+    </head> 
+    <body> 
+        <nav> 
+            <button id = 'profile'> Profile Page </button> 
+            <h1> XC/Track organizer </h1>
+        </nav>
+        <header> 
+            <h1> View Athletes Meets and Times </h1>
+        </header>
+       
+        <main>
+            <form>
+                <div class = 'container'>
+                <div id = '1'> Name </div>
+                <div id = '2'> Gender </div>
+                <div id = '3'> Grade </div>
+                <div id = '4'> Division </div>
+                </div>
+            </form>
+           
+            <button id = 'home-page'> Return to Home Page </button>
+
+            <script>
+                document.querySelector('button[id=profile]').addEventListener('click', (e) => {
+				    e.preventDefault();
+				    document.location = 'profile%2Dpage.html';
+			    });
+                document.querySelector('#home-page').addEventListener('click', (e) => {
+                    document.location = 'XC%2DAthlete%2DPage.html';
+                });
+                //TODO: figure out what this problem is
+                const firstName = sessionStoarge.getItem('firstName');
+                const email = sessionStoarge.getItem('email');
+                const keyData {
+                    firstName: firstName;
+                    email: email;
+                }
+                
+                //Set up as an async function
+                const response = await fetch('view%2Dathletes.php', {method: 'POST', body: JSON.stringify(keyData)});
+                const data = await response.json;
+                const nameArray = data['nameArray'];
+                const genderArray = data['genderArray'];
+                const divisionArray = data['divisionArray']; 
+                const gradeArray = data['gradeArray']; 
+                const meetTimeArray = data['meetTimeArray'];
+                const meetArray = data['meetArray'];
+                const rows = data['rows']; 
+                const columns = data['columns']; 
+
+                const parent = document.querySelector('.container'); 
+                const rowLength = 4 + meetArray.length();
+                const columnLength = nameArray.length();
+
+                let styleArray = new Array(); 
+
+                styleArray[0] = .container {
+	                display: grid; 
+	                border: 2px solid black; 
+	                gap: 1rem; 
+                    grid-template-rows: repeat(columnLength, (vh * 75) / columnLength);
+                    grid-template-columns: repeat(rowLength, (vw * 100) / rowLength);
+	            }
+                styleArray[1] = #1 {
+                    gird-column-start: 1; 
+                    grid-row-start: 1;
+                }
+                styleArray[2] = #2 {
+                    grid-column-start: 2;
+                    grid-row-start: 1;
+                }
+                styleArray[3] = #3 {
+                    grid-column-start: 3;
+                    grid-row-start: 1; 
+                }
+                styleArray[4] = #4 {
+                    grid-column-start: 4;
+                    grid-row-start: 1;
+                }
+                
+                const root = document.documentElement;
+
+                // element.insertAdjacentText('beforeend', text);
+                // arrayName[index] = value; 
+
+                for (let i = 0; i < meetArray.length(); i+=1) {
+                    let meetDiv = document.createElement('div'); 
+                    parent.appendChild('meetDiv'); 
+                    let divArray = document.querySelector('div'); 
+                    let number = i+5
+                    let meetDivElement = divArray[number];
+                    meetDivElement.setAttribute('id', number);
+                    meetDivElement.innerHTML = meetArray[i]; 
+                    root.style.setProperty('--')
+                    styleArray[number] = #number {
+                                           grid-column-start: 
+                                           grid-row-start: 1;
+                                        }
+                }
+                
+                const startingIndex = 5 + meetArray.length();
+            
+                for (let o = 0; o < nameArray.length; o+=1) {
+                    //Create name element
+                    let nameDiv = document.createElement('div'); 
+                    parent.appendChild('nameDiv'); 
+                    let divArray = document.querySelectorAll('div');
+                    let nameDivElement = divArray[startingIndex + (rowLength * o)];
+                    nameDivElement.setAttribute('id', startingIndex + (rowLength * o));
+                    nameDivELement.innerHTML = nameArray[o];
+
+                    //Create gender element
+                    let genderDiv = document.createElement('div');
+                    parent.appendChild('genderDiv');
+                    divArray = document.querySelectorAll('div');
+                    let genderDivElement = divArray[startingIndex + (rowLength * o) + 1];
+                    genderDivElement.setAttribute('id', startingIndex + (rowLength * o) + 1);
+                    genderDivElement.innerHTML = genderArray[o];
+
+                    //Create grade element
+                    let gradeDiv = document.createElement('div');
+                    parent.appendChild('gradeDiv');
+                    divArray = document.querySelectorAll('div');
+                    let gradeDivElement = divArray[startingIndex + (rowLength * o) + 2];
+                    gradeDivElement.setAttribute('id', startingIndex + (rowLength * o) + 2);
+                    gradeDivElement.innerHTML = gradeArray[o];
+
+                    //Create division element
+                    let divisonDiv = document.createElement('div');
+                    parent.appendChild('divisonDiv'); 
+                    divArray = document.querySelectorAll('div');
+                    let divisionDivElement = divArray[startingIndex + (rowLength * o) + 3];
+                    divisionDivElement.setAttribute('id', startingIndex + (rowLength * o) + 3);
+                    divisionDivElement.innerHTML = divisionArray[o];
+                    
+                    //Create meet time elements
+                    let athleteArray = meetTimeArray[o];
+                    for (let p = 0; p < athleteArray.length(); p+=1) {
+                        let timeDiv = document.createElement('div');
+                        parent.appendChild('timeDiv');
+                        divArray = document.querySelectorAll('div'); 
+                        let timeDivElement = divArray[startingIndex + (rowLength * o) + 4 + p];
+                        timeDivElement.setAttribute('id', startingIndex + (rowLength * o) + 4 +p);
+                        timeDivElement.innerHTML = athleteArray[p];
+                    }
+                }
+                document.querySelector('button[id=home-page]').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.location = 'XC%2DAthlete%2DPage.html';
+                })
+            </script>
+        </main>
+    </body>
+</html>

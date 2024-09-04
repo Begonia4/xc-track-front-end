@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+    <head>
+        <meta charset = 'utf-8'>
+        <title> Get meet document </title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+	    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">	
+	    <link rel = 'stylesheet' href = 'add-athletes.css'> </link>
+    </head>
+        <body>
+            <nav> 
+                <button id = 'profile'> Profile Page </button> 
+                <h1> XC/Track organizer </h1>
+            </nav>
+            <header> 
+                <h1> Get meet info in a spreadsheet </h1>
+            </header>
+            <main>
+                <form>
+                    <label> Select what meet would you like to get a spreadsheet for. </label>
+                </form>
+                <button id = 'home-page'> Return to Home Page </button>
+                <script>
+                    document.querySelector('button[id=profile]').addEventListener('click', (e) => {
+				        e.preventDefault();
+				        document.location = 'profile%2Dpage.html';
+			        });
+                    let userName = sessionStoarge.getItem('firstName');
+                    let email = sessionStoarge.getItem('email');
+                    let athlete = sessionStoarge.getItem('athlete');
+                    let formData {
+                        userName: userName,
+                        email: email,
+                        athlete: athlete
+                    }
+                    // Fetch data from php to get the meet array to fill out html elements so the user can choose the meet
+                    const meetResponse = fetch('meet%2Darray.php', {method: 'POST', body: JSON.stringify(formData)});
+
+                    let meetArray = meetResponse.json;
+
+                    // Create radio buttons for each meet
+                    document.querySelector('form').forEach((meetName, meetKey) => {
+                        let newRadio = document.createElement('input');
+                        parent.appendChild('newRadio');
+                        let meetRadioArray = document.querySelectorAll('input');
+                        let meetRadio = meetRadioArray[meetKey]; 
+                        meetRadio.setAttribute('type', 'radio');
+                        meetRadio.setAttribute('name', 'select');
+                        meetRadio.setAttribute('value', meetName);
+                        meetRadio.innerHTML = meetName;
+                    });
+
+                    // Create submit button
+                    let button = document.createElement('button');
+                    parent.appendChild('button');
+                    let submit = document.querySelector('button');
+                    submit.setAttribute('type', 'submit');
+                    submit.innerHTML = 'Submit';
+                    
+                    document.querySelector('#home-page').addEventListener('click', (e) => {
+                        document.location = 'home%20page.html';
+                    });
+                </script>
+            </main>
+        </body>
+</html>

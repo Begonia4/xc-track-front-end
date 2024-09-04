@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+    <head> 
+        <meta charset = 'utf-8'>
+        <title> Update Athletes </title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+	    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">	
+	    <link rel = 'stylesheet' href = 'UpdateChoose.css'> </link>
+    </head>
+    <body> 
+        <nav> 
+            <button id = 'profile'> Profile Page </button> 
+            <h1> XC/Track organizer </h1>
+        </nav>
+        <header> 
+                <h1> Update Athletes </h1>
+        </header>
+        <main>
+            <!--Select the athlete to update-->
+            <form> 
+                <label> What athlete would you like to update? </label>
+                <button type = 'submit'> Submit </button>
+            </form> 
+            <span> </span> 
+            <button id = 'home-page'> Return to Home Page </button>
+            <script>
+                document.querySelector('button[id=profile]').addEventListener('click', (e) => {
+				    e.preventDefault();
+				    document.location = 'profile%2Dpage.html';
+			    });
+                document.querySelector('#home-page]').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.location = 'XC%2DAthlete%2DPage.html';
+                });
+                const email = sessionStoarge.getItem('email'); 
+                const firstName = sessionStoarge.getItem('firstName');
+                const keyData {
+                    email: email,
+                    firstName: firstName
+                }
+                const response = fetch('update%2Dathlete%2Dchoose%2Dathlete', {method: 'POST', body: JSON.stringify(keyData)})
+
+                let nameArray = response.json();
+                
+                //TODO: Do I need to make this an await function?
+                nameArray.forEach((name, index) => {
+                    let nameOption = document.createElement('input'); 
+                    const parent = document.querySelector('label');
+                    parent.appendChild('nameOption'); 
+                    let optionArray = document.querySelectorAll('input'); 
+                    let optionElement = optionArray[index];
+                    optionElement.setAttribute('value', name);
+                    optionElement.setAttribute('type', 'radio');
+                    optionElement.setAttribute('name', 'athleteNames') 
+                    optionElement.innerHTML = name; 
+                })
+                const form = document.querySelector('form');
+                form.addEventLisntener('submit', (e) => {
+                    e.preventDefualt;
+                    let radios = document.querySelectorAll('input[type=radio]');
+                    radios.forEach((radio) => {
+                        if(radio.checked) {
+                            let athlete = radio.value; 
+                        }
+                    })
+                    sessionStoage.setItem('athlete', athlete); 
+                    document.location = 'update%2Dchoosen%2Dathlete'; 
+                });
+                
+            </script>
+        </main>
+    </body>

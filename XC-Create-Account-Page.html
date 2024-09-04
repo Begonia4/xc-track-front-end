@@ -1,0 +1,139 @@
+<!DOCTYPE html> 
+<html lang = 'en'>
+	<head>
+		<meta charset = 'utf-8'>
+		<title> Create Account </title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+		<link rel='stylesheet' href='CreateAccount.css'> </link>
+	</head> 
+	<nav> 
+		<button id = 'about-us'> About us </button>
+	</nav>
+	<main> 
+		<header> 
+			<h1> Create Account <h1>
+		</header>
+		<body> 
+			<main> 
+			<form> 
+				
+				<label> Enter Username/Email Address: </label>
+				<div>
+				<input id = 'username-box' type = 'email' name = 'username-box'  placeholder = 'username' maxlength = '50' required> </input>
+				</div>
+				
+				<label> Enter Password: </label>
+				<div>
+				<input id = 'password-box-1' type = 'password' name = 'password-box-1'  placeholder = 'password' maxlength = '25' required> </input>
+				</div> 
+				<label> Confirm Password: </label>
+				<div>
+				<input id = 'password-box-2' type = 'password' name = 'password-box-2'  placeholder = 'password' maxlength = '25' required> </input>
+				<span> </span>
+				</div> 
+				<label> Enter Your First Name: </label>
+				<div>
+				<input id = 'first-name' type = 'text' placeholder = 'John' maxlength = '25' required> </input> 
+				</div>
+				<label> Enter Your Last Name: </label>
+				<div>
+				<input id = 'last-name' type = 'text' placeholder = 'Doe' maxlength = '25' required> </input> 
+				</div>
+				<label> Enter Your Birthday: </label>
+				<div>
+				<input id = 'birthday' type = 'text' placeholder = 'mm/dd/yyyy' pattern = '\d\d/\d\d/\d\d\d\d' maxlength = '11' required> </input>
+				</div>
+				<label> School Name: </label>
+				<div>
+				<input id = 'school' type = 'text' name = 'school'  placeholder = 'school-name' maxlength = '40' required> </input> 
+				</div>
+				<button id = 'id' type = 'submit'> Submit </button>
+			</form>
+			<span> </span>
+			<script> 
+				document.querySelector('#about-us').addEventListener('click', (e) => {
+						document.location = 'About%2DUs%2DPage.html';
+					});
+				//Check if passwords match; 
+				let passwordOne = document.querySelector('#password-box-1').value
+				let passwordTwo = document.querySelector('#password-box-2').value
+				if (passwordOne === passwordTwo) {
+					/* 
+					TODO: set confirmation in css
+
+					input+span :: after {
+					content: `(Passwords Match)`;
+					color: green; */ 
+					} else {
+						/* 
+						TODO: set confirmation in css
+
+						input+span :: after {
+						content: ` (Passwords do not match, try again) `;
+						color: red; */
+					}
+			
+			// Figure out how to not let the user hit the submit button until the passwords match
+
+			/*-check if the required fields have been filled in css
+				.error {
+					Border-color: rgba(255, 0, 0, .5);
+					Box-shadow: 0 0 10px 2px rgba(255, 0, 0, .8);			
+				}
+				input : valid {
+					Border-color: lightgray;
+					Box-shadow: none;
+				}
+			
+				const inputs = document.querySelectorAll('input');
+				for (const input of inputs) {
+					input.addEventListner('invalid', () => {
+						input.classList.add('error');
+					});
+				}
+			*/
+	
+			//Put user account info into the organizational mySQL table -->
+			form.addEventListener('submit', async (e) => {
+				e.preventDefault(); 
+				let email = document.querySelector('#username-box').value;
+				let password = document.querySelector('#password-box-1').value;
+				let firstName = document.querySelector('#first-name').value;
+				let lastName = document.querySelector('#last-name').value; 
+				let birthday = document.querySelector('#birthday').value;
+				let school = document.querySelector('#school').value; 
+
+				let formData = {
+					email: email, 
+					password: password,
+					firstName: firstName, 
+					lastName: lastName, 
+					brithday: birthday,
+					school: school
+				}
+				//TODO: try catch block
+				const response = await fetch('create%2Daccount.php', {form: 'POST', body: JSON.stringify(formData)});
+
+				let returnArray = await response.json()
+
+				if(returnArray[0] === 'green') {
+					sessionStoarge.setItem('email', returnArray[1]);
+					sessionStoarge.setItem('firstName', returnArray[2]);
+					document.location = 'XC%2DAthlete%2DPage.html';
+				} else {
+					let target = document.querySelector('span'); 
+					//make sure there is a newline in between the error messages
+					for(let i = 0; i < 6; i++) {
+						target.innerHTML = returnArray[i];
+					}	
+				}
+			})
+			</script>
+			</main>
+		</body>
+	</main>
+</html> 
+
+

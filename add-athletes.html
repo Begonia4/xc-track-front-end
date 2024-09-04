@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+    <head>
+        <meta charset = 'utf-8'> 
+        <title> Add Athletes </title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+	    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">	
+	    <link rel = 'stylesheet' href = 'add%2Dathletes.css'> </link>
+    </head>
+    <body> 
+        <nav> 
+            <button id = 'profile'> Profile Page </button> 
+            <h1> XC/Track organizer </h1>
+        </nav>
+        <header> 
+            <h1> Add Athletes </h1>
+        </header>
+        <main> 
+    
+            <form>
+            <label> Enter athlete's first name </label>
+            <div> 
+                <input id = 'first-name' type = 'text' placeholder = 'John' maxlength = '25' required> </input>
+            </div>
+            <label> Enter athlete's last name </label>
+            <div>
+                <input id = 'last-name' type = 'text' placeholder = 'Doe' maxlength = '25' required> </input>
+            </div>
+            <label> Select the athlete's grade level </label>
+            <div>  
+                <select id = 'grade-level' size = '7' required> 
+                <option value = '6'> 6 </option>
+                <option value = '7'> 7 </option>
+                <option value = '8'> 8 </option>
+                <option value = '9'> 9 </option>
+                <option value = '10'> 10 </option>
+                <option value = '11'> 11 </option>
+                <option value = '12'> 12 </option>
+                </select>
+            </div>
+            <label> Select the athlete's varsity level </label>
+            <div> 
+                <select id = 'varsity-level' size = '2' required>
+                <option value = 'V'> V </option>
+                <option value = 'JV'> JV </option>
+                </select>
+             </div>
+            <label> Select the athlete's gender </label>
+            <div> 
+                <select id = 'gender' size = '2' required>
+                    <option value = 'male'> male </option>
+                    <option value = 'female'> female </option>
+                </select>
+            <div>
+                <button type = 'submit'> Add Athlete </button>  
+            </div>
+            </form>
+            <span> </span>
+       
+            <button id = 'home-page'> Return to Home Page </button>
+
+           
+            <script>
+                document.querySelector('button[id=profile]').addEventListener('click', (e) => {
+				    e.preventDefault();
+				    document.location = 'profile%2Dpage.html';
+			    });
+                const form = document.querySelector('form'); 
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    let firstName = document.querySelector('#first-name').value;
+                    let lastName = document.querySelector('#last-name').value;
+                    let grade = document.querySlector('#grade-level').value;
+                    let level = document.querySelector('#varsity-level').value;
+                    let gender = document.querySelector('#gender').value;
+                    let email = sessionStorage.getItem('email');
+                    let userName = sessionStoarge.getItem('firstName');
+
+                    let fromData = {
+                        firstName: firstName,
+                        lastName: lastName,
+                        grade: grade,
+                        level: level,
+                        gender: gender,
+                        email: email,
+                        userName: userName
+                    }
+                    const response = await fetch('add%2Dathletes.php', { method: 'POST', body: JSON.stringify(formData)});
+
+                    if(response.text() == 'green') {
+                        document.location = 'add%2Dathlete%2Dpage.html';
+                    } else {
+                        let target = document.querySelector('span');
+                        target.innerHTML(response.text()); //Output to the user if the form data was not successfully updated. 
+                    }
+                });
+
+                document.querySelector('#home-page').addEventListener('click', (e) => {
+                    document.location = 'XC%2DAthlete%2DPage.html';
+                });
+            </script> 
+        </main>
+    </body>
+</html>
